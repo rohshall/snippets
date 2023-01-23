@@ -38,13 +38,11 @@ nmap     <C-f>p <Plug>CtrlSFPwordPath
 nnoremap <C-f>o :CtrlSFOpen<CR>
 nnoremap <C-f>t :CtrlSFToggle<CR>
 
-set rtp+=/opt/homebrew/opt/fzf
-
 let g:ale_completion_enabled = 1
 let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 let g:airline#extensions#ale#enabled = 1
 
-set guifont=Menlo\ Regular:h16
+set guifont=Liberation\ Mono\ 14
 
 " Enable true color
 if exists('+termguicolors')
