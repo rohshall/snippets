@@ -13,9 +13,11 @@ mkfifo "$PANEL_FIFO"
 bspc subscribe report > "$PANEL_FIFO" &
 while true;
 do
-    echo "T$(xdotool getwindowfocus getwindowname)";
+    echo "T$(xdotool getwindowfocus getwindowname | cut -c1-70)";
     date +'S%a %H:%M %y-%m-%d';
-    echo "B$(envstat -s 'acpibat0:charge' | awk -F'[()]' 'FNR==3{print $2}')";
+    echo "B$(envstat -s 'acpibat0:charge' | awk -F'[()]' 'FNR==3{print $2}')"; # NetBSD
+    # echo "B$(apm -alb | awk 'FNR==2{print $1}')"; # OpenBSD
+    # echo "B$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | awk -F':\\s+' '/percentage/{print $2}')"; # Linux
     sleep 1;
 done > "$PANEL_FIFO" &
 
