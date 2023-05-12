@@ -13,7 +13,10 @@ mkfifo "$PANEL_FIFO"
 bspc subscribe report > "$PANEL_FIFO" &
 while true;
 do
-    echo "T$(xdotool getwindowfocus getwindowname | cut -c1-70)";
+    XTITLE=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | grep -o '[^ ]*$') WM_NAME | awk -F ' = ' '{print $2}');
+    if [ $? -eq 0 ]; then
+        echo "T$XTITLE";
+    fi
     date +'S%a %H:%M %y-%m-%d';
     echo "B$(envstat -s 'acpibat0:charge' | awk -F'[()]' 'FNR==3{print $2}')"; # NetBSD
     # echo "B$(apm -alb | awk 'FNR==2{print $1}')"; # OpenBSD
