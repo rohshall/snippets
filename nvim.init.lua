@@ -4,11 +4,7 @@ local function load_plugins()
         use 'wbthomason/packer.nvim'
         use 'dense-analysis/ale'
         use 'junegunn/fzf.vim'
-        use {
-            'akinsho/bufferline.nvim',
-            tag = "*",
-            requires = 'nvim-tree/nvim-web-devicons'
-        } 
+        use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate'
@@ -29,6 +25,7 @@ end
 local load_config = function()
     vim.opt.omnifunc = 'ale#completion#OmniFunc'
     vim.opt.termguicolors = true
+    vim.opt.showtabline = 2
     vim.opt.syntax = 'on'
     vim.opt.hidden = true
     vim.opt.tabstop = 4
@@ -67,7 +64,11 @@ local load_config = function()
     vim.keymap.set("n", "<leader>b", ":Neotree buffers<CR>", opts)
     vim.keymap.set("n", "<leader>g", ":Neotree git_status<CR>", opts)
 
-    require("bufferline").setup{} 
+    require("bufferline").setup {
+        options = {
+            numbers = "buffer_id"
+        }
+    }
 end
 
 load_plugins()
