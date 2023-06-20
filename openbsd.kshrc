@@ -21,7 +21,7 @@ case "$-" in *i*)
 	  0) _PS1_COLOR='\[\033[1;31m\]' ;;
 	  *) _PS1_COLOR='\[\033[32m\]'   ;;
 	esac
-	PS1='$_XTERM_TITLE\A $_PS1_COLOR\u@\h$_PS1_CLEAR:$_PS1_BLUE\w$_PS1_COLOR\$$_PS1_CLEAR '
+	PS1='$_XTERM_TITLE\A $_PS1_COLOR\u$_PS1_CLEAR$_PS1_BLUE[\w]$_PS1_COLOR\$$_PS1_CLEAR '
 	set -o emacs
 	;;
 esac
