@@ -7,7 +7,6 @@ export LC_CTYPE=en_US.UTF-8
 export CLICOLOR=1
 HISTFILE=$HOME/.ksh_history
 HISTSIZE=20000
-export NVM_DIR="$HOME/.nvm"
 
 # emacs mode gives you the familiar Ctrl-A, Ctrl-E, etc
 set -o emacs
@@ -34,5 +33,4 @@ tab_title() {
   echo -n -e "\033]0;${PWD##*/}\007"
 }
 
-export PS1='$(tab_title)\033[32m$USER\033[35m@\033[32m \033[33m$PWD\033[36m `_cmd_status` `_git_branch`\$ \033[0m'
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+export PS1='$(tab_title)\033[32m$USER\033[33m[$PWD]\033[36m`_cmd_status` `_git_branch`\$ \033[0m'
