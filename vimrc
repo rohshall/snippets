@@ -5,6 +5,7 @@ set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
+set nu
 set laststatus=2
 
 colorscheme desert
@@ -18,6 +19,7 @@ call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf.vim'
+Plug 'lambdalisue/fern.vim'
 Plug 'liuchengxu/eleline.vim'
 
 " Initialize plugin system
@@ -28,20 +30,21 @@ set omnifunc=ale#completion#OmniFunc
 set cmdheight=2
 
 set rtp+=/usr/pkg/share/fzf
+set guifont=CaskaydiaCove\ Nerd\ Font\ Mono\ 14
 
 nnoremap <C-p> :Files<CR>
+nnoremap <C-e> :Fern . -drawer<CR>
 nnoremap <silent> <S-h> :bn<CR>
 nnoremap <silent> <S-l> :bp<CR>
+nnoremap ]a :ALENextWrap<CR>
+nnoremap [a :ALEPreviousWrap<CR>
 
 let g:ale_completion_enabled = 1
-let g:eleline_powerline_fonts = 1
-let g:eleline_slim = 1
 
-let g:netrw_banner = 0
-let g:netrw_browse_split = 4
-let g:netrw_winsize = 25
-let g:netrw_altv = 1
-let g:netrw_alto = 1
-
-map <silent> <C-E> :Lexplore<CR>
+" Enable true color
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
 
