@@ -187,7 +187,7 @@ bindsym $mod+r mode "resize"
 title_align center
 
 # class                 border      background  text       indicator  child_border
-client.focused          #271f17aF   #777f17f5   #fffffF   #AAAAAA55   #FF6F5495
+client.focused          #271f17aF   #177f77f5   #fffffF   #AAAAAA55   #FF6F5495
 client.focused_inactive #21211d55   #22222255   #888888   #484e5055   #ffffff15
 client.unfocused        #33333355   #1d212155   #fffff1   #292d2e55   #22222255
 client.urgent           #4a4b4c55   #4a4b4c55   #fffffF   #AAAAAA55   #4a4c4b55
