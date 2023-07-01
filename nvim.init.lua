@@ -48,7 +48,7 @@ local load_config = function()
     vim.g.netrw_winsize = 25
 
     vim.cmd [[colorscheme slate]]
-    vim.opt.guifont = "CaskaydiaCove_Nerd_Font_Mono:h18"
+    vim.opt.guifont = "CaskaydiaCove Nerd Font Mono:h18"
     vim.opt.rtp:append('/opt/local/share/fzf/vim')
 
     -- mappings
