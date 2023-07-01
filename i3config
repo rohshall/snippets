@@ -183,40 +183,29 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-######################################
-# color settings fo windows         #
-######################################
-#zenburn
-set $bg     #2c2c2e
-set $fg     #9f9f9f
-set $hi     #efef8f
-set $ac     #a0afa0
-set $tx     #040404
-set $ia     #8f8f8f
-set $be     #8faf9f
-set $yw     #ccdc90
-set $gn     #88b090
-set $rd     #e89393
+# title
+title_align center
 
-#set window color           border      background  text
-client.focused              #a0afa0     #a0afa0     #040404
-client.unfocused            #2c2c2e     #2c2c2e     #8f8f8f
-client.focused_inactive     #2c2c2e     #2c2c2e     #a0afa0
-client.urgent               #e89393     #e89393     #040404
+# class                 border      background  text       indicator  child_border
+client.focused          #271f17aF   #777f17f5   #fffffF   #AAAAAA55   #FF6F5495
+client.focused_inactive #21211d55   #22222255   #888888   #484e5055   #ffffff15
+client.unfocused        #33333355   #1d212155   #fffff1   #292d2e55   #22222255
+client.urgent           #4a4b4c55   #4a4b4c55   #fffffF   #AAAAAA55   #4a4c4b55
+client.placeholder      #00000055   #0c0c0c55   #fffffF   #00000055   #0c0c0c55
+client.background       #11111155
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
     position top
     status_command i3status
-     colors {
-            background          #2c2c2e
-            statusline          #9f9f9f
-            separator           #efef8f
-            # <colorclass>      <border>    <background>    <text>
-            focused_workspace   #88b090     #2c2c2e         #a0afa0
-            active_workspace    #88b090     #a0afa0         #040404
-            inactive_workspace  #2c2c2e     #2c2c2e         #8f8f8f
-            urgent_workspace    #ccdc90     #2c2c2e         #a0afa0
-        }
+    colors {
+        background #00000055
+        statusline #d0e1d4
+        separator  #c1d0c1
+        # class			          border  	background  text
+        focused_workspace   	#FF6F54 	#FF6F54 	  #FFF2CE
+        inactive_workspace  	#64635f 	#64635f 	  #a7afa9
+        urgent_workspace    	#2e394a 	#2e394a 	  #e7dfd9
+    }
 }
