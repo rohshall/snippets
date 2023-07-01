@@ -1,15 +1,15 @@
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Inconsolata Nerd Font Mono
+    family: CaskaydiaCove Nerd Font Mono
     style: Regular
   # The bold font face
   bold:
-    family: Inconsolata Nerd Font Mono
+    family: CaskaydiaCove Nerd Font Mono
     style: Bold
   # The italic font face
   italic:
-    family: Inconsolata Nerd Font Mono
+    family: CaskaydiaCove Nerd Font Mono
     style: Italic
   # Point size of the font
   size: 11.0
