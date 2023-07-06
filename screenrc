@@ -1,5 +1,5 @@
 #https://www.kilobitspersecond.com/2014/02/10/understanding-gnu-screens-hardstatus-strings/
-escape ^Jj
+escape ^Zz
 defscrollback 5000
 startup_message off
 hardstatus alwayslastline "%-w%{= RW}%50>%n %t%{-}%+w%<"
