@@ -1,15 +1,15 @@
 font:
   # The normal (roman) font face to use.
   normal:
-    family: CaskaydiaCove Nerd Font Mono
+    family: Liberation Mono
     style: Regular
   # The bold font face
   bold:
-    family: CaskaydiaCove Nerd Font Mono
+    family: Liberation Mono
     style: Bold
   # The italic font face
   italic:
-    family: CaskaydiaCove Nerd Font Mono
+    family: Liberation Mono
     style: Italic
   # Point size of the font
   size: 11.0
