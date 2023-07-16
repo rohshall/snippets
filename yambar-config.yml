@@ -1,0 +1,166 @@
+# fonts we'll be re-using here and there
+awesome: &awesome Font Awesome 6 Free:style=solid:pixelsize=14
+awesome_brands: &awesome_brands Font Awesome 6 Brands:pixelsize=16
+hack: &hack Hack Nerd Font:pixelsize=13
+bg_default: &bg_default {stack: [{background: {color: 81A1C1ff}}, {underline: {size: 4, color: D8DEE9ff}}]}
+std_underline: &std_underline {underline: { size: 2, color: ff0000ff}}
+
+bar:
+  height: 40
+  location: top
+  font: JuliaMono:pixelsize=10
+  spacing: 12
+  margin: 0
+  layer: bottom
+  foreground: eeeeeeff
+  background: 2E3440dd
+
+  left:
+  - river:
+      anchors:
+      - base: &river_base
+          left-margin: 10
+          right-margin: 13 
+          text: "{id}"
+          font: *hack
+          on-click: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
+
+      title:
+        string:
+          margin: 6
+          text: "{title}"
+
+      content:
+        map:
+          conditions:
+            state == focused:
+              string:
+                <<: *river_base
+                deco:
+                  stack:
+                  - background: { color: 599bf6ff }
+                  - underline: { size: 2, color: fefefeff }
+            state == unfocused:
+              string:
+                <<: *river_base
+            state == invisible:
+              map:
+                conditions:
+                  occupied:
+                    string:
+                      <<: *river_base
+                      deco:
+                        stack:
+                        - underline: { size: 2, color: fefefeff }
+                  ~occupied:
+                    map:
+                      default:
+                        empty: {}
+                      conditions:
+                        # 9 default tags that are shown unless occupied
+                        id == 1: { string: { <<: *river_base }}
+                        id == 2: { string: { <<: *river_base }}
+                        id == 3: { string: { <<: *river_base }}
+                        id == 4: { string: { <<: *river_base }}
+                        id == 5: { string: { <<: *river_base }}
+                        id == 6: { string: { <<: *river_base }}
+                        id == 7: { string: { <<: *river_base }}
+                        id == 8: { string: { <<: *river_base }}
+                        id == 9: { string: { <<: *river_base }}
+  right:
+    - network:
+        name: wlp0s20u1
+        poll-interval: 1000
+        content:
+          map:
+            default: {string: {text: , font: *awesome, foreground: ffffff66}}
+            conditions:
+              state == down: {string: {text: , font: *awesome, foreground: ff0000ff}}
+              state == up:
+                map:
+                  default:
+                    - string: {text: , font: *awesome}
+                    - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s"}
+
+                  conditions:
+                    ipv4 == "":
+                      - string: {text: , font: *awesome, foreground: ffffff66}
+                      - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s", foreground: ffffff66}
+    - alsa:
+        card: hw:PCH
+        mixer: Master
+        content:
+          map:
+            conditions:
+              ~online: {string: {text: , font: *awesome, foreground: ff0000ff}}
+              online:
+                map:
+                  on-click: /bin/sh -c "amixer -q sset Speaker unmute && amixer -q sset Headphone unmute && amixer -q sset Master toggle"
+                  conditions:
+                    muted: {string: {text: , font: *awesome, foreground: ffffff66}}
+                    ~muted:
+                      ramp:
+                        tag: percent
+                        items:
+                          - string: {text: , font: *awesome}
+                          - string: {text: , font: *awesome}
+                          - string: {text: , font: *awesome}
+    - backlight:
+        name: intel_backlight
+        content: [ string: {text: , font: *awesome}, string: {text: "{percent}%"}]
+    - battery:
+        name: BAT0
+        poll-interval: 30000
+        anchors:
+          discharging: &discharging
+            list:
+              items:
+                - ramp:
+                    tag: capacity
+                    items:
+                      - string: {text: , foreground: ff0000ff, font: *awesome}
+                      - string: {text: , foreground: ffa600ff, font: *awesome}
+                      - string: {text: , font: *awesome}
+                      - string: {text: , font: *awesome}
+                      - string: {text: , font: *awesome}
+                      - string: {text: , font: *awesome}
+                      - string: {text: , font: *awesome}
+                      - string: {text: , font: *awesome}
+                      - string: {text: , font: *awesome}
+                      - string: {text: , foreground: 00ff00ff, font: *awesome}
+                - string: {text: "{capacity}% {estimate}"}
+        content:
+          map:
+            conditions:
+              state == unknown:
+                <<: *discharging
+              state == discharging:
+                <<: *discharging
+              state == charging:
+                - string: {text: , foreground: 00ff00ff, font: *awesome}
+                - string: {text: "{capacity}% {estimate}"}
+              state == full:
+                - string: {text: , foreground: 00ff00ff, font: *awesome}
+                - string: {text: "{capacity}% full"}
+              state == "not charging":
+                - ramp:
+                    tag: capacity
+                    items:
+                      - string: {text:  , foreground: ff0000ff, font: *awesome}
+                      - string: {text:  , foreground: ffa600ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                - string: {text: "{capacity}%"}
+    - clock:
+        time-format: "%H:%M %Z"
+        content:
+          - string: {text: , font: *awesome}
+          - string: {text: "{date}", right-margin: 5}
+          - string: {text: , font: *awesome}
+          - string: {text: "{time}"}
