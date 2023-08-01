@@ -44,7 +44,9 @@ esac
 
 
 #For OpenBSD
+export LSCOLORS=fxexcxdxbxegedabagacad
+#For NetBSD
 #export LSCOLORS="4x5x2x3x1x464301060203"
-#alias ls='colorls -G'
+alias ls='colorls -G'
 #For Linux
-alias ls='ls --color=auto'
+#alias ls='ls --color=auto'
