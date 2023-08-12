@@ -21,6 +21,8 @@ set $term foot
 set $menu wofi --show run
 exec dbus-run-session pipewire
 
+font pango:"RobotoMono Nerd Font" Regular 11
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
