@@ -20,7 +20,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/fern.vim'
-Plug 'liuchengxu/eleline.vim'
+Plug 'rbong/vim-crystalline'
 
 " Initialize plugin system
 call plug#end()
@@ -29,8 +29,8 @@ set omnifunc=ale#completion#OmniFunc
 " Give more space for displaying messages.
 set cmdheight=2
 
-set rtp+=/usr/pkg/share/fzf
-set guifont=CaskaydiaCove\ Nerd\ Font\ Mono\ 14
+" set rtp+=/usr/pkg/share/fzf
+" set guifont=CaskaydiaCove\ Nerd\ Font\ Mono\ 14
 
 nnoremap <C-p> :Files<CR>
 nnoremap <C-e> :Fern . -drawer<CR>
@@ -41,10 +41,10 @@ nnoremap [a :ALEPreviousWrap<CR>
 
 let g:ale_completion_enabled = 1
 
-" Enable true color
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
-
+set tabline=%!crystalline#bufferline()
+set showtabline=2
+function! StatusLine(...)
+  return crystalline#mode() . ' %f%h%w%m%r '
+endfunction
+let g:crystalline_statusline_fn = 'StatusLine'
+let g:crystalline_theme = 'dracula'
