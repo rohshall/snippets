@@ -47,4 +47,4 @@ function! StatusLine(...)
   return crystalline#mode() . ' %f%h%w%m%r '
 endfunction
 let g:crystalline_statusline_fn = 'StatusLine'
-let g:crystalline_theme = 'dracula'
+let g:crystalline_theme = 'nord'
