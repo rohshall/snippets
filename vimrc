@@ -43,6 +43,7 @@ let g:ale_completion_enabled = 1
 
 set tabline=%!crystalline#bufferline()
 set showtabline=2
+set guioptions-=e
 function! StatusLine(...)
   return crystalline#mode() . ' %f%h%w%m%r '
 endfunction
