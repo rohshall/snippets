@@ -1,15 +1,15 @@
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Liberation Mono
+    family: Inconsolata Medium
     style: Regular
   # The bold font face
   bold:
-    family: Liberation Mono
+    family: Inconsolata Medium
     style: Bold
   # The italic font face
   italic:
-    family: Liberation Mono
+    family: Inconsolata Medium
     style: Italic
   # Point size of the font
   size: 11.0
