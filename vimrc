@@ -30,7 +30,7 @@ set omnifunc=ale#completion#OmniFunc
 set cmdheight=2
 
 " set rtp+=/usr/pkg/share/fzf
-" set guifont=CaskaydiaCove\ Nerd\ Font\ Mono\ 14
+" set guifont=Inconsolata\ Medium\ 14
 
 nnoremap <C-p> :Files<CR>
 nnoremap <C-e> :Fern . -drawer<CR>
