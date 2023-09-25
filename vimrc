@@ -18,9 +18,10 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 Plug 'dense-analysis/ale'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/fern.vim'
-Plug 'rbong/vim-crystalline'
+Plug 'ap/vim-buftabline'
 
 " Initialize plugin system
 call plug#end()
@@ -29,8 +30,8 @@ set omnifunc=ale#completion#OmniFunc
 " Give more space for displaying messages.
 set cmdheight=2
 
-" set rtp+=/usr/pkg/share/fzf
-" set guifont=Inconsolata\ Medium\ 14
+set rtp+=/opt/local/share/fzf
+set guifont=Inconsolata-Regular:h18
 
 nnoremap <C-p> :Files<CR>
 nnoremap <C-e> :Fern . -drawer<CR>
@@ -40,12 +41,3 @@ nnoremap ]a :ALENextWrap<CR>
 nnoremap [a :ALEPreviousWrap<CR>
 
 let g:ale_completion_enabled = 1
-
-set tabline=%!crystalline#bufferline()
-set showtabline=2
-set guioptions-=e
-function! StatusLine(...)
-  return crystalline#mode() . ' %f%h%w%m%r '
-endfunction
-let g:crystalline_statusline_fn = 'StatusLine'
-let g:crystalline_theme = 'nord'
