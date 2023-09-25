@@ -81,7 +81,6 @@ local load_config = function()
     vim.keymap.set("n", "<leader>b", ":Neotree buffers<CR>", opts)
     vim.keymap.set("n", "<leader>g", ":Neotree git_status<CR>", opts)
 
-    require('cokeline').setup()
 end
 
 load_plugins()
