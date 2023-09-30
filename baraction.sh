@@ -1,16 +1,60 @@
-#!/bin/sh
-# Example Bar Action Script for NetBSD.
-#
+# network status
+network() {
+wifi="$(ip a | grep wlo1 | grep inet | wc -l)"
+wire="$(ip a | grep enp1s0 | grep inet | wc -l)"
+if [ $wire = 1 ]; then
+    echo " "
+elif [ $wifi = 1 ]; then
+    echo " "
+else
+    echo "睊"
+fi
+}
 
-# cache the output of envstat, no need to call that every second.
-BAT_LEVEL=""
-I=0
+# volume status
+vol() {
+    #volstat=$(pamixer --get-volume-human)
+    volstat=$(pulsemixer --get-volume | cut --characters=4,5)
+    vol=$(echo "$volstat")
+    volicon="墳"
+    echo "$volicon $vol"
+}
+
+# used storage
+hdd() {
+    hdd="$(df -h /home | grep /dev | awk '{print $3 " / " $2}')"
+    echo "$hdd"
+}
+
+# available ram
+mem() {
+    used="$(free -h | grep Mem: | awk '{print $3}')"
+    #total="$(free | grep Mem: | awk '{print $2}')"
+    #totalh="$(free -h | grep Mem: | awk '{print $2}' | sed 's/Gi/G/')"
+    ram="$used"
+    echo $ram
+}
+
+# Cpu things
+cpu() {
+    read cpu a b c previdle rest < /proc/stat
+    prevtotal=$((a+b+c+previdle))
+    sleep 0.5
+    read cpu a b c idle rest < /proc/stat
+    total=$((a+b+c+idle))
+    cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
+    echo -e "  $cpu%"
+}
+
+# Loop to update bar output
+update(){
+	#echo " $(cpu)+@fg=3; +@bg=1;+@fg=1;  $(mem)  +@fg=4;+@bg=2;+@fg=1;  $(hdd) +@fg=5;+@bg=3;+@fg=1; $(vol) +@fg=7;+@bg=5;+@fg=1; $(bat) +@fg=8;+@bg=6;+@fg=1; $(network) +@fg=1;+@bg=0;"
+	echo " +@fg=3; +@bg=1;+@fg=1;  $(mem)  +@fg=4;+@bg=2;+@fg=1;  $(hdd) +@fg=5;+@bg=3;+@fg=1; $(vol) +@fg=7;+@bg=5;+@fg=1;+@bg=6;+@fg=1; $(network) +@fg=1;+@bg=0;"
+    wait
+}
 while :; do
-	if [ $I -eq 0 ]; then
-		BAT_LEVEL=`envstat -s 'acpibat0:charge' | awk -F'[()]' 'FNR==3{print $2}'`
-	fi
-	echo -n "Bat: $BAT_LEVEL"
-	echo ""
-	I=$(( ( ${I} + 1 ) % 11 ))
-	sleep 1
+		update
+		#~/.config/spectrwm/scripts/trayer_follows_ws.sh
+    sleep 2 &
+    wait
 done

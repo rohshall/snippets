@@ -1,0 +1,8 @@
+configuration {
+    terminal: "alacritty";
+    modi: "drun,window,run";
+    icon-theme: "Papirus";
+    show-icons: true;
+    font: "mononoki Nerd Font 12";
+}
+@theme "/usr/share/rofi/themes/Monokai.rasi"
