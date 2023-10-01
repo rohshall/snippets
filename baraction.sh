@@ -1,60 +1,184 @@
-# network status
-network() {
-wifi="$(ip a | grep wlo1 | grep inet | wc -l)"
-wire="$(ip a | grep enp1s0 | grep inet | wc -l)"
-if [ $wire = 1 ]; then
-    echo " "
-elif [ $wifi = 1 ]; then
-    echo " "
-else
-    echo "睊"
-fi
-}
-
-# volume status
-vol() {
-    #volstat=$(pamixer --get-volume-human)
-    volstat=$(awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Master))
-    vol=$(echo "$volstat")
-    volicon="墳"
-    echo "$volicon $vol"
-}
-
-# used storage
+#!/bin/bash
+interval=0
+#############################
+#       FONT COLORS
+#############################
+fgwhite="+@fg=0;"
+fgwhite2="+@fg=1;"
+fgred="+@fg=2;"
+fggreen="+@fg=3;"
+fgyellow="+@fg=4;"
+fgblue="+@fg=5;"
+fgpurple="+@fg=6;"
+fgdarkgray="+@fg=7;"
+fgmidgray="+@fg=8;"
+##############################
+#	    DISK
+##############################
 hdd() {
-    hdd="$(df -h /home | grep /dev | awk '{print $3 " / " $2}')"
-    echo "$hdd"
+	  free="$(df -h /home | awk '/dev/ {print $3}' | sed 's/G/Gb/')"
+      perc="$(df -h /home | awk '/dev/ {print $5}')"
+      number="$(df -h /home | awk '/dev/ {print $5}' | sed 's/%//')"
+      if [[ $number -le 50 ]]; then
+        printf "$fggreen    $perc($free) $fgwhite"
+      elif [[ $number -ge 51 ]] && [[ $number -le 89 ]]; then
+        printf "$fgyellow    $perc($free) $fgwhite"
+      elif [[ $number -ge 90 ]]; then
+        printf "$fgred    $perc($free) $fgwhite"
+      fi
 }
-
-# available ram
+##############################
+#	    RAM
+##############################
 mem() {
-    used="$(free -h | grep Mem: | awk '{print $3}')"
-    #total="$(free | grep Mem: | awk '{print $2}')"
-    #totalh="$(free -h | grep Mem: | awk '{print $2}' | sed 's/Gi/G/')"
-    ram="$used"
-    echo $ram
-}
+    used="$(free | awk '/Mem:/ {print $3}')"
+    total="$(free | awk '/Mem:/ {print $2}')"
+    human="$(free -h | awk '/Mem:/ {print $3}' | sed s/i//g)"
+    percent="$(( 200 * $used/$total - 100 * $used/$total ))"
+    ram="$(( 200 * $used/$total - 100 * $used/$total ))%($human) "
 
-# Cpu things
+    if [[ $percent -le 25 ]]; then
+        printf "$fggreen  $fgwhite $ram "
+    elif [[ $percent -ge 26 ]] && [[ $percent -le 75 ]];  then
+        printf "$fgyellow    $fgwhite $ram "
+    elif [[ $percent -ge 76 ]] && [[ $percent -le 100 ]]; then
+        printf "$fgred    $fgwhite $ram "
+    fi
+}
+##############################
+#	    CPU
+##############################
 cpu() {
     read cpu a b c previdle rest < /proc/stat
-    prevtotal=$((a+b+c+previdle))
-    sleep 0.5
-    read cpu a b c idle rest < /proc/stat
-    total=$((a+b+c+idle))
-    cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-    echo -e "  $cpu%"
+	prevtotal=$((a+b+c+previdle))
+	sleep 0.5
+	read cpu a b c idle rest < /proc/stat
+	total=$((a+b+c+idle))
+	cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
+
+    cpu_value=$(grep -o "^[^ ]*" /proc/loadavg)
+
+    if [[ $cpu -le 80 ]]; then
+        echo "$fgblue  $fgwhite $bgdarkgray $cpu_value% "
+    elif [[ $cpu -ge 81 ]]; then
+        echo "$fgred   $fgwhite $bgdarkgray  $cpu_value% "
+    fi
 }
 
-# Loop to update bar output
-update(){
-	#echo " $(cpu)+@fg=3; +@bg=1;+@fg=1;  $(mem)  +@fg=4;+@bg=2;+@fg=1;  $(hdd) +@fg=5;+@bg=3;+@fg=1; $(vol) +@fg=7;+@bg=5;+@fg=1; $(bat) +@fg=8;+@bg=6;+@fg=1; $(network) +@fg=1;+@bg=0;"
-	echo " +@fg=3; +@bg=1;+@fg=1;  $(mem)  +@fg=4;+@bg=2;+@fg=1;  $(hdd) +@fg=5;+@bg=3;+@fg=1; $(vol) +@fg=7;+@bg=5;+@fg=1;+@bg=6;+@fg=1; $(network) +@fg=1;+@bg=0;"
-    wait
+##############################
+#	    VOLUME ICON
+##############################
+volicon() {
+    VOLONOFF="$(amixer -D pulse get Master | awk '/Left:/ {print $6}' | sed 's/[][]//g')"
+    VOL="$(amixer -D pulse get Master | awk '/Left:/ {print $5}' | sed 's/[][]//g; s/%//')"
+    LOWVOL=" "
+    MIDVOL="墳"
+    HIVOL=" "
+    VOLOFF="婢"
+
+    if [[ "$VOLONOFF" = "off" ]] || [[ "$VOL" = 0 ]]; then
+        echo "$fgred $VOLOFF $fgwhite $VOL "
+    elif [[ "$VOL" -ge 1 ]] && [[ "$VOL" -le 25 ]]; then
+        echo "$fggreen $LOWVOL $fgwhite $VOL% "
+    elif [[ "$VOL" -ge 26 ]] && [[ "$VOL" -le 74 ]]; then
+        echo "$fgyellow $MIDVOL $fgwhite $VOL% "
+    elif [[ "$VOL" -ge 75 ]] ; then
+        echo "$fgpurple $HIVOL $fgwhite $VOL% "
+    fi
 }
-while :; do
-		update
-		#~/.config/spectrwm/scripts/trayer_follows_ws.sh
-    sleep 2 &
-    wait
-done
+
+##############################
+#	    NETWORK ICON
+##############################
+networkicon() {
+    wire="$(ip a | awk '/enp/ && /inet/ || /eth/ && /inet/ {print $NF}' | wc -l)"
+    wifi="$(ip a | awk '/wlan/ && /inet/ {print $NF}' | wc -l)"
+    if [ $wire = 1 ]; then
+        printf "$fgwhite "
+    elif [ $wifi = 1 ]; then
+        printf "$fgyellow $fgwhite"
+    else
+        printf "$fgred睊$fgwhite"
+    fi
+}
+#############################
+#       IP ADDRESS
+#############################
+ipaddress() {
+    address="$(ip a | awk '/.255/ {print $2}' | sed -e 's|/24||' -e 1q)"
+    printf "$fgwhite $address"
+}
+
+###########################
+#       BATTERY
+###########################
+#bat() {
+#batstat="$(cat /sys/class/power_supply/BAT0/status)"
+#battery="$(cat /sys/class/power_supply/BAT0/capacity)"
+#    if [ $batstat = 'Unknown' ]; then
+#    batstat="$fggreen "
+#    elif [[ $battery -ge 5 ]] && [[ $battery -le 19 ]]; then
+#    batstat="$fgred "
+#    elif [[ $battery -ge 20 ]] && [[ $battery -le 39 ]]; then
+#    batstat="$fgyellow "
+#    elif [[ $battery -ge 40 ]] && [[ $battery -le 59 ]]; then
+#    batstat="$fgyellow "
+#    elif [[ $battery -ge 60 ]] && [[ $battery -le 79 ]]; then
+#    batstat="$fgyellow "
+#    elif [[ $battery -ge 80 ]] && [[ $battery -le 95 ]]; then
+#    batstat="$fggreen "
+#    elif [[ $battery -ge 96 ]] && [[ $battery -le 100 ]]; then
+#    batstat="$fggreen "
+#fi
+#printf "$batstat  $battery %"
+#}
+#############################
+#   CLOCK ICON
+#############################
+clockicon() {
+    CLOCK=$(date '+%I')
+    case "$CLOCK" in
+    "00") icon="" ;;
+    "01") icon="" ;;
+    "02") icon="" ;;
+    "03") icon="" ;;
+    "04") icon="" ;;
+    "05") icon="" ;;
+    "06") icon="" ;;
+    "07") icon="" ;;
+    "08") icon="" ;;
+    "09") icon="" ;;
+    "10") icon="" ;;
+    "11") icon="" ;;
+    "12") icon="" ;;
+    esac
+    echo "$fgblue $(date "+$icon")"
+}
+#############################
+#       DATE FORMATTED
+#############################
+dateinfo() {
+    echo "$fgblue $(date "+%b %d %Y (%a)") $fgwhite"
+}
+#############################
+#       TIME FORMATTED
+#############################
+clockinfo() {
+    echo "$fgyellow $(date "+%R") "
+}
+
+#subs() {
+#    subscribers="$(cat $HOME/.config/subs.txt)"
+#    echo "$fgred   $fgwhite $subscribers"
+#}
+
+
+#sleeptime=2
+#loops forever outputting a line every SLEEP_SEC secs
+while true; do
+    [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ]
+    interval=$((interval + 1))
+
+sleep 1 && echo "$(cpu) $(mem) $(hdd) $(networkicon) $(ipaddress) $(volicon) $(dateinfo) $(clockicon) $(clockinfo) "
+    #sleep $sleeptime
+	done
