@@ -14,7 +14,7 @@ fi
 # volume status
 vol() {
     #volstat=$(pamixer --get-volume-human)
-    volstat=$(pulsemixer --get-volume | cut --characters=4,5)
+    volstat=$(awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Master))
     vol=$(echo "$volstat")
     volicon="墳"
     echo "$volicon $vol"
