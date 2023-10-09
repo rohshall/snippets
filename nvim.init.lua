@@ -4,18 +4,14 @@ local function load_plugins()
         use 'wbthomason/packer.nvim'
         use 'dense-analysis/ale'
         use 'junegunn/fzf.vim'
-
         use {
-            'willothy/nvim-cokeline',
-            requires = {
-                "nvim-lua/plenary.nvim",        -- Required for v0.4.0+
-                "kyazdani42/nvim-web-devicons", -- If you want devicons
-            },
+            'akinsho/bufferline.nvim',
+            tag = "*",
+            requires = 'nvim-tree/nvim-web-devicons',
             config = function()
-                require("cokeline").setup()
+                require("bufferline").setup()
             end
         }
-
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate'
@@ -50,6 +46,7 @@ local load_config = function()
     vim.opt.linebreak = true
     vim.opt.list = false
     vim.opt.clipboard = "unnamedplus"
+    vim.opt.modeline = false
     -- vim globals
     vim.g.ale_completion_enabled = 1
     -- Keep the current directory and the browsing directory synced to avoid file move errors 
@@ -62,20 +59,14 @@ local load_config = function()
 
     vim.cmd [[colorscheme slate]]
     vim.opt.guifont = "Inconsolata:h18"
-    vim.opt.rtp:append('/opt/local/share/fzf/vim')
-    if vim.g.neovide then
-        vim.g.neovide_scroll_animation_length = 0.0
-        vim.g.neovide_cursor_animation_length = 0.0
-        vim.g.neovide_cursor_animate_in_insert_mode = false
-        vim.g.neovide_cursor_animate_command_line = false
-    end
+    -- vim.opt.rtp:append('/opt/local/share/fzf/vim')
     -- mappings
     local opts = { noremap=true, silent=true }
     vim.keymap.set("n", "<leader>x", "\"+x<CR>", opts)
     vim.keymap.set("n", "<leader>y", "\"+y<CR>", opts)
     vim.keymap.set("n", "<leader>p", "\"+p<CR>", opts)
-    vim.keymap.set("n", "<S-h>", ":bp<CR>", opts)
-    vim.keymap.set("n", "<S-l>", ":bn<CR>", opts)
+    vim.keymap.set("n", "<Tab>", ":bn<CR>", opts)
+    vim.keymap.set("n", "<S-Tab>", ":bp<CR>", opts)
     vim.keymap.set("n", "<C-p>", ":Files<CR>", opts)
     vim.keymap.set("n", "<C-e>", ":Neotree<CR>", opts)
     vim.keymap.set("n", "<leader>b", ":Neotree buffers<CR>", opts)
