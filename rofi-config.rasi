@@ -3,6 +3,6 @@ configuration {
     modi: "drun,window,run";
     icon-theme: "Papirus";
     show-icons: true;
-    font: "mononoki Nerd Font 12";
+    font: "Ubuntu Nerd Font 12";
 }
 @theme "/usr/share/rofi/themes/Monokai.rasi"
