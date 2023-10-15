@@ -35,12 +35,16 @@ vim.keymap.set("n", "<leader>y", "\"+y<CR>", opts)
 vim.keymap.set("n", "<leader>p", "\"+p<CR>", opts)
 vim.keymap.set("n", "<Tab>", ":bn<CR>", opts)
 vim.keymap.set("n", "<S-Tab>", ":bp<CR>", opts)
-vim.keymap.set("n", "<C-p>", ":Files<CR>", opts)
 
 
 local plugins = {
     'dense-analysis/ale',
-    'junegunn/fzf.vim',
+    {
+        "junegunn/fzf",
+        keys = {
+            { "<C-p>", "<cmd>FZF<cr>", desc = "fzf" },
+        }
+    },
     {
         'akinsho/bufferline.nvim',
         version = "*",
@@ -59,10 +63,10 @@ local plugins = {
             "MunifTanjim/nui.nvim",
         },
         keys = {
-            { "<leader>ft", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
+            { "<leader>ft", "<cmd>Neotree toggle<cr>", desc = "Toggle" },
             { "<C-e>", "<cmd>Neotree<cr>", desc = "NeoTree" },
-            { "<leader>b", "<cmd>Neotree buffers<cr>", desc = "NeoTree" },
-            { "<leader>g", "<cmd>Neotree git_status<cr>", desc = "NeoTree" },
+            { "<leader>b", "<cmd>Neotree buffers<cr>", desc = "Buffers" },
+            { "<leader>g", "<cmd>Neotree git_status<cr>", desc = "Git" },
         },
         config = function()
             require("neo-tree").setup()
@@ -84,4 +88,4 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup(plugins, {})
+require("lazy").setup(plugins)
