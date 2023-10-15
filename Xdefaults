@@ -9,7 +9,7 @@ Xft.rgba: rgb
 XTerm*termName: xterm-color
 XTerm*loginShell: true
 XTerm*faceName: xft:Liberation Mono
-XTerm*faceSize: 16
+XTerm*faceSize: 12
 
 
 !BLK Cursor
