@@ -1,0 +1,53 @@
+-- Conky Name: nutyx
+
+conky.config = {
+alignment="top_right",
+background="no",
+border_margin=5,
+border_width=5,
+default_color="e85252",
+double_buffer=true,
+draw_borders=false,
+draw_outline=false,
+draw_shades=false,
+gap_x=20,
+gap_y=15,
+minimum_width = 310, minimum_height = 90,
+maximum_width = 310,
+no_buffers=true,
+override_utf8_locale=true,
+own_window=true,
+own_window_title=conky,
+own_window_hints="undecorated,below,sticky,skip_taskbar,skip_pager",
+own_window_transparent=true,
+own_window_type="override",
+own_window_color= '000000',
+text_buffer_size="1000",
+total_run_times=0,
+update_interval=1,
+uppercase=false,
+short_units=true,
+use_xft=true,
+xftalpha=1,
+font="Ubuntu:pixelsize=13",
+}
+conky.text = [[
+${voffset 8}${image /usr/share/images/logo_nutyx_120.png -p 90,1}
+${voffset 110}${alignc}${font Liberation Serif:Bold:size=18}${exec lsb_release -sd | sed 's/\"//g'}${color}${font}
+${voffset 5}${alignc}${font Ubuntu:size=11}${color #cfcfcf}${exec init --version}${font}${color}
+${voffset -16}${color #cfcfcf}${font sans-serif:size=10}${hr 1}${color}${font}
+${font Ubuntu:size=11}KERNEL:  ${color #cfcfcf}${kernel}${color}${alignr}${font Ubuntu:size=11}SESSION:  ${font}${color #cfcfcf}${exec 'echo $DESKTOP_SESSION'}${color}${font}
+${voffset 0}${font Ubuntu:size=11}MEMORY:   ${color #cfcfcf}${exec free -h --si | awk 'NR==2{printf $3}'}${color}${alignr}PACKAGES:  ${color #cfcfcf}${exec pkginfo -n}${color}${font}
+${font Ubuntu:size=11}SWAP:  ${color #cfcfcf}${swap} / ${swapmax}${color}${alignr}PROCESSES:  ${color #cfcfcf}${execi 1000 ps aux | wc -l}${color}
+TEMP:  ${color #cfcfcf}${hwmon temp 1}°C${color}${alignr}DISK:  ${color #cfcfcf}${fs_used /} / ${fs_size /}${color}${font}
+${font Ubuntu:size=11}CPU:  ${color #cfcfcf}${cpu cpu0}%${color}${alignr}UPTIME:  ${color #cfcfcf}${uptime}${font}${color}
+${color #cfcfcf}${font sans-serif:bold:size=10}${hr 1}${color}
+${voffset 2}${alignc}${font Ubuntu Condensed:size=11}${execi 1000 grep model /proc/cpuinfo | cut -d : -f2 | tail -1 | sed 's/\s//'}
+${color #cfcfcf}${font sans-serif:bold:size=10}${hr 1}${color}
+${goto 20}${voffset 6}${font Ubuntu:size=12}${time %A}${font}
+${goto 176}${voffset -28}${font Ubuntu:size=40}${color #cfcfcf}${time %H:%M}${color}${font}
+${goto 20}${voffset -20}${font Ubuntu:size=12}${time %d }${time %B %Y}${font}
+${voffset 4}${color #cfcfcf}${font sans-serif:bold:size=10}${hr 1}${color}
+
+]]
+
