@@ -26,7 +26,7 @@ Plug 'lambdalisue/fern.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-devicons.vim'
-Plug 'bagrat/vim-buffet'
+Plug 'ap/vim-buftabline'
 
 " Initialize plugin system
 call plug#end()
