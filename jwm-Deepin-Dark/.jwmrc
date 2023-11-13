@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+<JWM>
+
+<!-- THEME NAME: DEEPIN DARK -->
+
+    	<!-- The root menu. -->
+    	<RootMenu onroot="12">
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/system-file-manager.svg" label="File Manager">pcmanfm</Program>
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/utilities-terminal.svg" label="Terminal">xterm</Program>
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/preferences-system-search.svg"
+label="Run program">dmenu_run</Program>
+	<!-- Menu structure -->
+	<Menu label="Screenshot" icon="/usr/share/icons/Papirus/16x16/apps/digikam.svg">
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/digikam.svg"
+label="Now">scrot -d 1 -e 'mv $f ~/Pictures/'</Program>
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/digikam.svg"
+label="In 10 seconds...">scrot -q 90 -d 10 -e 'mv $f ~/Pictures/'</Program>
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/digikam.svg"
+label="In 20 seconds...">scrot -q 90 -d 20 -e 'mv $f ~/Pictures/'</Program>
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/digikam.svg"
+label="Area (drag the mouse)">scrot -q 90 -s -e 'mv $f ~/Pictures/'</Program>
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/digikam.svg"
+label="Window (click the window)">scrot -q 90 -s -b -e 'mv $f ~/Pictures/'</Program>
+	</Menu>
+        <Separator/>
+
+        <Include>exec: xdgmenumaker -n -i -f jwm</Include>
+
+        <Separator/>
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/yast-snapper.svg"
+label="Refresh Menu">jwm -reload</Program>
+
+	<!-- Menu structure -->
+	<Menu label="JWM Configuration" icon="/usr/share/icons/Papirus/16x16/apps/utilities-tweak-tool.svg">
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/realtimesync.svg" label="Restart JWM">jwm -restart&&bash -c 'sleep 4'&&nitrogen --restore</Program>
+
+	<Separator/>
+
+	<!-- Scripts for changing themes are located in /usr/local/bin -->
+
+	<Menu label="JWM Themes" icon="/usr/share/icons/Papirus/16x16/apps/colorpicker.svg">
+	<Program icon="/usr/share/icons/Papirus/16x16/status/package-installed-outdated.svg" label="About Themes">theme-info</Program>
+        <Separator/>
+	<Program icon="/usr/share/images/menu/adwaita.svg" label="Adwaita">theme-adwaita</Program>
+	<Program icon="/usr/share/images/menu/adwaita-dark.svg" label="Adwaita Dark">theme-adwaita-dark</Program>
+	<Program icon="/usr/share/images/menu/deepin.svg" label="Deepin">theme-deepin</Program>
+	<Program icon="/usr/share/images/menu/deepin-dark.svg" label="Deepin Dark">theme-deepin-dark</Program>
+	</Menu>
+
+        <Separator/>
+
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/accessories-text-editor.svg"
+label=".jwmrc">warning-jwmrc;leafpad ~/.jwmrc</Program>
+	</Menu>	
+	<Menu label="System Accessories" icon="/usr/share/icons/Papirus/16x16/apps/applications-accessories.svg">
+	<Program icon="/usr/share/images/menu/root-fm.svg" label="PCManFM (as root)">/usr/local/bin/root-pcmanfm</Program>
+	<Program icon="/usr/share/images/menu/root-theme.svg" label="Customize Look and Feel (as root)">/usr/local/bin/root-appearance</Program>
+        <Separator/>
+	<Program icon="/usr/share/icons/Papirus-Dark/16x16/apps/conky.svg" label="Conky Chooser">/usr/local/bin/conky-chooser</Program>
+	<Program icon="/usr/share/icons/Papirus/16x16/panel/input-touchpad-on.svg" label="Touchpad Controls">/usr/local/bin/miyo-touchpad</Program>
+        <Separator/>	
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/accessories-text-editor.svg"
+label="picom.conf">leafpad ~/.config/picom.conf</Program>
+	</Menu>
+        <Separator/>
+        <Program icon="/usr/share/icons/Papirus/16x16/apps/system-lock-screen.svg" label="Screen Lock">lxdm -c USER_SWITCH</Program>
+	<!-- Menu structure -->
+	<Menu label="Exit" icon="/usr/share/icons/Papirus/16x16/apps/system-log-out.svg">
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/system-shutdown.svg" label="Shutdown">loginctl poweroff</Program>
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/system-reboot.svg" label="Reboot">loginctl reboot</Program>
+	<Program icon="/usr/share/icons/Papirus/16x16/apps/system-log-out.svg" label="Logout">jwm -exit</Program>
+	</Menu>
+    	</RootMenu>
+
+    	<!-- Options for program groups. -->
+    	<Group>
+        <Option>tiled</Option>
+        <Option>aerosnap</Option>
+    	</Group>
+
+    	<Group>
+        <Class>Pidgin</Class>
+        <Option>sticky</Option>
+    	</Group>
+
+    	<Group>
+        <Name>xterm</Name>
+	<!--<Option>notitle</Option>
+	<Option>x:332</Option>
+	<Option>y:150</Option>-->
+    	</Group>
+
+    	<Group>
+        <Name>xclock</Name>
+        <Option>drag</Option>
+        <Option>notitle</Option>
+    	</Group>
+
+    	<!--<Group>
+        <Name>guvcview</Name>
+        <Option>notitle</Option>
+	<Option>x:-10</Option>
+	<Option>y:10</Option>
+    	</Group>-->
+
+    	<!--STARTUP COMMANDS-->
+	<StartupCommand>/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1</StartupCommand> 
+        <StartupCommand>nitrogen --restore</StartupCommand>
+   	<StartupCommand>picom</StartupCommand>  
+	<StartupCommand>volumeicon</StartupCommand> 
+	<StartupCommand>nm-applet</StartupCommand>
+
+	<StartupCommand>xset s off -dpms</StartupCommand>
+	<StartupCommand>xrdb -load .Xresources</StartupCommand>
+	<StartupCommand>/usr/lib/xfce4/notifyd/xfce4-notifyd</StartupCommand>
+        <StartupCommand>sleep 4&&conky</StartupCommand>
+	<StartupCommand>cbatticon</StartupCommand>
+	<!-- STARTUP COMMANDS FOR TOUCHPAD CONTROLS -->
+    	<!--To disable the touchpad while typing, uncomment the next line.-->
+    	<!--<StartupCommand>syndaemon -i 1.0 -d</StartupCommand>-->
+
+    	<!--To disable the touchpad completely, uncomment
+       	the next line.-->
+    	<!--<StartupCommand>synclient TouchpadOff=1</StartupCommand>-->
+
+    	<!-- To enable "Single Tap to Select", uncomment the 
+        next line.-->
+    	<!--<StartupCommand>synclient TapButton1=1</StartupCommand>-->
+
+    	<!--To enable "Two Finger Scrolling", uncomment the next line.-->
+    	<!--<StartupCommand>synclient VertTwoFingerScroll=1</StartupCommand>-->
+
+    	<!--To enable "Vertical Edge Scrolling", uncomment the next line.-->
+    	<!--<StartupCommand>synclient VertEdgeScroll=1</StartupCommand>-->
+
+	<!--END OF STARTUP COMMANDS-->
+
+    	<!-- Tray at the bottom. -->
+    	<Tray x="0" y="-1" height="24" autohide="off">
+	<Spacer width="2"/>
+        <TrayButton icon="/usr/share/icons/Papirus-Dark/symbolic/places/start-here-symbolic.svg">root:1</TrayButton>
+        <Spacer width="7"/>
+	<TrayButton icon="/usr/share/icons/Papirus-Dark/symbolic/apps/system-file-manager-symbolic.svg">exec:pcmanfm</TrayButton>
+	<Spacer width="7"/>
+        <TrayButton icon="/usr/share/icons/Papirus-Dark/symbolic/apps/utilities-terminal-symbolic.svg">exec:xterm</TrayButton>
+	<Spacer width="7"/>
+	<TrayButton icon="/usr/share/icons/Papirus-Dark/symbolic/devices/input-keyboard-symbolic.svg">exec:jwm-keys</TrayButton>
+	<Spacer width="7"/>
+
+        <TaskList maxwidth="150"/>
+	<Spacer width="7"/>
+        <Pager labeled="false"/>
+	<Spacer width="21"/>
+        <Dock spacing="14"/>
+	<Spacer width="14"/>
+        <Clock format="%H:%M"><Button mask="123">exec:yad --calendar --width=400 --borders=5 --button=Close --mouse --skip-taskbar --undecorated --on-top</Button></Clock>
+	<Spacer width="14"/>
+        <TrayButton icon="/usr/share/icons/Papirus-Dark/symbolic/places/user-desktop-symbolic.svg">showdesktop</TrayButton>
+
+    	</Tray>
+
+    	<!-- VISUAL STYLES -->
+
+    	<TaskListStyle>
+	<Active>
+		<Foreground>#89919a</Foreground>
+		<Background>#303C4A</Background>
+		<Outline>#404040</Outline>
+	</Active>
+    	</TaskListStyle>
+
+    	<WindowStyle>
+        <Font>DejaVu Sans-10</Font>
+        <Width>1</Width>
+        <Height>22</Height>
+        <Corner>1</Corner>
+        <Foreground>#89919a</Foreground>
+        <Background>#1f2326</Background>
+        <Outline>#404040</Outline>
+        <Opacity>1.0</Opacity>
+        <Active>
+            	<Foreground>#89919a</Foreground>
+            	<Background>#1f2326</Background>
+            	<Outline>#404040</Outline>
+            	<Opacity>1.0</Opacity>
+        </Active>
+    	</WindowStyle>
+
+
+    	<TrayStyle group="true" list="all">
+        <Font>Sans-10</Font>
+        <Background>#1f2326</Background>
+        <Foreground>#89919a</Foreground>
+        <Outline>#1f2326</Outline>
+        <Opacity>0.8</Opacity>
+    	</TrayStyle>
+
+
+    	<PagerStyle>
+        <Outline>#303C4A</Outline>
+        <Foreground>#3B3F44</Foreground>
+        <Background>#16191b</Background>
+        <Text>#1A1B1F</Text>
+        <Active>
+            	<Foreground>#3B3F44</Foreground>
+            	<Background>#2A3542</Background>
+	    	<Text>#303C4A</Text>
+        </Active>
+    	</PagerStyle>
+
+
+    	<MenuStyle>
+        <Font>Ubuntu-11</Font>
+        <Foreground>#89919a</Foreground>
+        <Background>#1f2326</Background>
+        <Outline>#404040</Outline>
+        <Active>
+            	<Foreground>#FFFFFF</Foreground>
+            	<Background>#106daa</Background>
+        </Active>
+        <Opacity>1.0</Opacity>
+    	</MenuStyle>
+
+
+    	<PopupStyle>
+        <Font>Sans-10</Font>
+        <Foreground>#89919a</Foreground>
+        <Background>#1f2326</Background>
+	<Outline>#1f2326</Outline>
+    	</PopupStyle>
+
+    	<!-- Path where icons can be found.
+      	IconPath can be listed multiple times to allow searching
+      	for icons in multiple paths.-->
+
+    	<IconPath>/usr/share/icons/Paper/16x16/apps</IconPath>
+    	<IconPath>/usr/share/icons/Paper-Mono-Dark/16x16/apps</IconPath>
+    	<IconPath>/usr/share/icons/Paper/16x16/actions</IconPath>
+    	<IconPath>/usr/share/icons/Paper/16x16/emblems</IconPath>
+    	<IconPath>/usr/share/icons/Papirus/16x16/apps</IconPath>
+    	<IconPath>/usr/share/icons/gnome/256x256/actions</IconPath>
+    	<IconPath>/usr/share/icons/gnome/256x256/apps</IconPath>
+    	<IconPath>/usr/share/icons/gnome/256x256/categories</IconPath>
+    	<IconPath>/usr/share/icons/gnome/256x256/devices</IconPath>
+    	<IconPath>/usr/share/icons/gnome/256x256/emblems</IconPath>
+    	<IconPath>/usr/share/icons/gnome/256x256/mimetypes</IconPath>
+    	<IconPath>/usr/share/icons/gnome/256x256/places</IconPath>
+    	<IconPath>/usr/share/icons/gnome/256x256/status</IconPath>
+    	<IconPath>/usr/share/icons/gnome/32x32/actions</IconPath>
+    	<IconPath>/usr/share/icons/gnome/32x32/animations</IconPath>
+    	<IconPath>/usr/share/icons/gnome/32x32/apps</IconPath>
+    	<IconPath>/usr/share/icons/gnome/32x32/categories</IconPath>
+    	<IconPath>/usr/share/icons/gnome/32x32/devices</IconPath>
+    	<IconPath>/usr/share/icons/gnome/32x32/emblems</IconPath>
+    	<IconPath>/usr/share/icons/gnome/32x32/mimetypes</IconPath>
+    	<IconPath>/usr/share/icons/gnome/32x32/places</IconPath>
+    	<IconPath>/usr/share/icons/gnome/32x32/status</IconPath>
+    	<IconPath>/usr/share/icons/gnome/scalable/actions</IconPath>
+    	<IconPath>/usr/share/icons/gnome/scalable/apps</IconPath>
+    	<IconPath>/usr/share/icons/gnome/scalable/categories</IconPath>
+    	<IconPath>/usr/share/icons/gnome/scalable/devices</IconPath>
+    	<IconPath>/usr/share/icons/gnome/scalable/emblems</IconPath>
+    	<IconPath>/usr/share/icons/gnome/scalable/mimetypes</IconPath>
+    	<IconPath>/usr/share/icons/gnome/scalable/places</IconPath>
+    	<IconPath>/usr/share/icons/gnome/scalable/status</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/256x256/apps</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/256x256/mimetypes</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/32x32/actions</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/32x32/apps</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/32x32/categories</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/32x32/devices</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/32x32/emblems</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/32x32/mimetypes</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/32x32/status</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/512x512/apps</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/512x512/mimetypes</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/scalable/actions</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/scalable/apps</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/scalable/categories</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/scalable/devices</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/scalable/emblems</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/scalable/mimetypes</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/scalable/places</IconPath>
+    	<IconPath>/usr/share/icons/hicolor/scalable/status</IconPath>
+    	<IconPath>/usr/share/icons</IconPath>
+    	<IconPath>/usr/share/pixmaps</IconPath>
+
+    	<!-- Virtual Desktops -->
+    	<!-- Desktop tags can be contained within Desktops for desktop names. -->
+    	<Desktops width="2" height="1">
+        <!-- Default background. Note that a Background tag can be
+              contained within a Desktop tag to give a specific background
+              for that desktop.-->
+        <Background type="solid">#111111</Background>
+    	</Desktops>
+
+    	<!-- Double click speed (in milliseconds) -->
+    	<DoubleClickSpeed>400</DoubleClickSpeed>
+
+    	<!-- Double click delta (in pixels) -->
+    	<DoubleClickDelta>2</DoubleClickDelta>
+
+    	<!-- The focus model (sloppy or click) -->
+    	<FocusModel>click</FocusModel>
+
+    	<!-- The snap mode (none, screen, or border) -->
+    	<SnapMode distance="10">border</SnapMode>
+
+    	<!-- The move mode (outline or opaque) -->
+    	<MoveMode coordinates="off">opaque</MoveMode>
+
+    	<!-- The resize mode (outline or opaque) -->
+    	<ResizeMode>opaque</ResizeMode>
+
+    	<!-- Key bindings -->
+    	<Key key="Up">up</Key>
+    	<Key key="Down">down</Key>
+    	<Key key="Right">right</Key>
+    	<Key key="Left">left</Key>
+    	<Key key="h">left</Key>
+    	<Key key="j">down</Key>
+    	<Key key="k">up</Key>
+    	<Key key="l">right</Key>
+    	<Key key="Return">select</Key>
+    	<Key key="Escape">escape</Key>
+    	<Key key="Print">exec:scrot -d 1 -e 'mv $f ~/Pictures/'</Key>
+
+    	<Key mask="A" key="Tab">nextstacked</Key>
+    	<Key mask="A" key="c">close</Key>
+    	<Key mask="A" key="#">desktop#</Key>
+    	<Key mask="A" key="F1">window</Key>
+    	<Key mask="A" key="F10">maximize</Key>
+    	<Key mask="A" key="Right">rdesktop</Key>
+    	<Key mask="A" key="Left">ldesktop</Key>
+    	<!--<Key mask="A" key="Up">udesktop</Key>-->
+    	<!--<Key mask="A" key="Down">ddesktop</Key>-->
+    	<Key mask="A" key="space">root:1</Key>
+    	<Key mask="A" key="b">exec:firefox</Key>
+    	<Key mask="A" key="f">exec:pcmanfm</Key>
+    	<Key mask="A" key="r">exec:dmenu_run</Key>
+    	<Key mask="A" key="t">exec:xterm</Key>
+    	<Key mask="A" key="Down">showdesktop</Key>
+    	<Key mask="A" key="#">desktop#</Key>
+
+    	<Key mask="CA" key="Up">exec:jwm -reload</Key>
+    	<Key mask="CA" key="Down">exec:jwm -restart&&bash -c 'sleep 4'&&nitrogen --restore</Key>
+
+    	<Key mask="4" key="f">exec:root-pcmanfm</Key>
+    	<Key mask="4" key="l">exec:root-appearance</Key>
+    	<Key mask="4" key="p">exec:sudo flcards</Key>
+
+    	<Key mask="SC" key="l">exec:jwm -exit</Key>
+    	<Key mask="SC" key="r">exec:loginctl reboot</Key>
+    	<Key mask="SC" key="s">exec:loginctl poweroff</Key>
+    	<Key mask="SC" key="x">exec:lxdm -c USER_SWITCH</Key>
+
+</JWM>
