@@ -1,19 +1,13 @@
 # Colors
 autoload -U colors
 colors
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%b '
 setopt prompt_subst
 
 # Prompt
-local smiley="%(?,%{$fg[green]%}☺%{$reset_color%},%{$fg[red]%}☹%{$reset_color%})"
-
-PROMPT='
-%~
-${smiley}  %{$reset_color%}'
-
-RPROMPT='%{$fg[white]%} $(~/bin/git-cwd-info)%{$reset_color%}'
-
-# Replace the above with this if you use rbenv
-# RPROMPT='%{$fg[white]%} $(~/.rbenv/bin/rbenv version-name)$(~/bin/git-cwd-info.rb)%{$reset_color%}'
+PROMPT='%F{green}%f %F{yellow}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 
 # Show completion on first TAB
 setopt menucomplete
