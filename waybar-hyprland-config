@@ -5,9 +5,9 @@
     // "width": 1280, // Waybar width
     // "gtk-layer-shell": "false",
     // Choose the order of the modules
-    "modules-left": ["hyprland/workspaces", "custom/scratchpad", "tray"],
+    "modules-left": ["hyprland/workspaces", "tray"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["custom/zypper", "network", "cpu", "memory", "pulseaudio", "clock", "custom/notification"],
+    "modules-right": ["network", "cpu", "memory", "pulseaudio", "clock", "custom/notification"],
     "hyprland/workspaces": {
         "all-outputs": false,
         "disable-scroll": true,
@@ -22,34 +22,6 @@
 	"format": "👉 {}",
 	"separate-outputs": true
     },
-    "custom/layout": {
-        "tooltip": false,
-        "exec": "swaymsg -mrt subscribe '[\"input\"]' | jq -r --unbuffered \"select(.change == \\\"xkb_layout\\\") | .input | select(.type == \\\"keyboard\\\") | .xkb_active_layout_name | .[0:2]\""
-    },
-    "custom/zypper": {
-        "format": "{} ",
-        "interval": 3600,
-        "exec": "zypper lu | grep 'v |' | wc -l; echo 'packages to update'",
-        "exec-if": "exit 0",
-        "on-click": "exec alacritty -e sudo sh -c 'zypper ref; zypper dup; pkill -SIGRTMIN+8 waybar'",
-        "signal": 8
-    },
-    // Modules configuration
-    //  "sway/workspaces": {
-    //     "disable-scroll": true,
-    //     "all-outputs": true,
-    //     "format": "{name}: {icon}",
-    //     "format-icons": {
-    //         "1": "",
-    //         "2": "",
-    //         "3": "",
-    //         "4": "",
-    //         "5": "",
-    //         "urgent": "",
-    //         "focused": "",
-    //         "default": ""
-    //     }
-    // },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
@@ -63,15 +35,8 @@
     },
     "clock": {
         // "timezone": "America/New_York",
-        "format": " {:%b %d %Y %R}",
-        "tooltip-format": "<span color='#35b9ab'><big>{:%Y %B}</big></span>\n<span color='#35b9ab'><tt><small>{calendar}</small></tt></span>",
-        "format-alt": "{:%a %d %b w:%V %H:%M}",
-        "today-format": "<span color='#21a4df'><b><u>{}</u></b></span>",
-        "calendar-weeks-pos": "left",
-        "format-calendar": "<span background='#173f4f' bgalpha='60%'><b>{}</b></span>",
-        "format-calendar-weeks": "<span color='#73ba25'><b>{}</b></span>",
-        "format-calendar-weekdays": "<span color='#21a4df'><b>{}</b></span>",
-        "interval": 10
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
         "format": "{usage}% ",
@@ -134,15 +99,6 @@
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
         "tooltip": false
-    },
-    "custom/scratchpad": {
-        "format-text": "{}",
-        "return-type": "json",
-        "interval": 3,
-        "exec": "/usr/share/openSUSEway/helpers/scratchpad-indicator.sh 2> /dev/null",
-        "exec-if": "exit 0",
-        "on-click": "swaymsg 'scratchpad show'",
-        "on-click-right": "swaymsg 'move scratchpad'"
     },
     "custom/notification": {
 	"tooltip": true,
