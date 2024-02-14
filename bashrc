@@ -4,14 +4,8 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
-case "$TERM" in
-xterm*|alacritty)
-    PS1='\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
-    ;;
-screen*)
-    PS1='\[\033k\033\\\]\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
-    ;;
-*)
-    PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
-    ;;
-esac
+#alias ls='ls --color'
+source ~/.git-prompt.sh
+PS1="\[\033[01;32m\]\u[\[\033[01;34m\]\w\[\033[00m\]] \[\e[91m\]$(__git_ps1)\[\e[00m\] $ "
+source /opt/local/share/fzf/shell/key-bindings.bash
+source /opt/local/share/nvm/init-nvm.sh
