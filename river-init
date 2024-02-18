@@ -13,10 +13,6 @@
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super+Shift Return spawn foot
 riverctl map normal Super P spawn "wofi --show run"
-# Screenshot
-riverctl map normal None Print spawn "grim -t jpeg ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).jpg"
-# Take a screenshot of the selected region
-riverctl map normal Super Print spawn 'grim -t jpeg -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).jpg'
 
 # Super+Q to close the focused view
 riverctl map normal Super Q close
@@ -160,15 +156,13 @@ riverctl float-filter-add app-id float
 riverctl float-filter-add title "popup title with spaces"
 
 # Set app-ids and titles of views which should use client side decorations
-#riverctl csd-filter-add app-id "gedit"
+riverctl csd-filter-add app-id "gedit"
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-rivertile -view-padding 2 -outer-padding 2 &
+rivertile -view-padding 6 -outer-padding 6 &
 
-riverctl spawn pipewire
-riverctl spawn swaync
 riverctl spawn waybar
-no_log='> /dev/null 2>&1'
-riverctl spawn "swayidle timeout 1200 'wlopm --off LVDS-1' resume 'wlopm --on LVDS-1' $no_log"
+riverctl spawn mako
+riverctl spawn swayidle
