@@ -1,3 +1,3 @@
-timeout 1800 'swaylock -f'
-timeout 1805 'wlopm --off HDMI-A-2' resume 'wlopm --on HDMI-A-2'
+timeout 600 'swaylock -f'
+timeout 605 'wlopm --off eDP-1' resume 'wlopm --on eDP-1'
 before-sleep 'swaylock -f'
