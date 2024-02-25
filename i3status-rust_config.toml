@@ -1,30 +1,40 @@
+icons_format = "{icon}"
+
+[theme]
 theme = "solarized-dark"
-icons = "awesome"
+
+[icons]
+icons = "awesome4"
+
+[[block]]
+block = "battery"
+format = " $icon $percentage {$time |}"
+
+[[block]]
+block = "cpu"
 
 [[block]]
 block = "disk_space"
 path = "/"
-alias = "/"
 info_type = "available"
-unit = "GB"
+alert_unit = "GB"
 interval = 20
+warning = 20.0
+alert = 10.0
+format = " $icon root: $available.eng(w:2) "
 
 [[block]]
 block = "memory"
-display_type = "memory"
-
-[[block]]
-block = "cpu"
-interval = 1
-
-[[block]]
-block = "load"
-interval = 1
+format = " $icon $mem_total_used_percents.eng(w:2) "
+format_alt = " $icon_swap $swap_used_percents.eng(w:2) "
 
 [[block]]
 block = "sound"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
 
 [[block]]
 block = "time"
-interval = 60
-format = "%a %d/%m %R"
+interval = 5
+format = " $timestamp.datetime(f:'%a %d/%m %R') "
