@@ -1,28 +1,27 @@
-# See man 5 mako
-
-max-visible=7
 sort=-time
-output=HDMI-A-1
-layer=top
-anchor=top-left
-
-font=monospace 10
-background-color=#798BC7F0
-text-color=#d5d6d7
+layer=overlay
+background-color=#2e3440
 width=300
-height=100
-margin=10
-padding=5
-border-size=0
-#border-color=#657ABFF0
-border-radius=10
-progress-color=over #5588AAF0
-icons=1
+height=110
+border-size=2
+border-color=#88c0d0
+border-radius=15
+icons=0
 max-icon-size=64
-icon-path=""
-markup=1
-actions=1
-#format=<b>%s</b>\n%b Default when grouped: (%g) <b>%s</b>\n%b
-default-timeout=10000
-ignore-timeout=0
-group-by=none
+default-timeout=5000
+ignore-timeout=1
+font=monospace 14
+
+[urgency=low]
+border-color=#cccccc
+
+[urgency=normal]
+border-color=#d08770
+
+[urgency=high]
+border-color=#bf616a
+default-timeout=0
+
+[category=mpd]
+default-timeout=2000
+group-by=category
