@@ -98,8 +98,6 @@ bar:
                 state == unfocused: {string: {<<: *music}}
                 state == invisible: {string: {<<: [*music, *invisible]}}
                 state == urgent:    {string: {<<: [*music, *urgent]}}
-
-  center:
     - foreign-toplevel:
         content:
           map:
