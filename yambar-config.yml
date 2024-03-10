@@ -1,15 +1,15 @@
 # fonts we'll be re-using here and there
 awesome: &awesome Font Awesome 6 Free:style=solid:pixelsize=14
 awesome_brands: &awesome_brands Font Awesome 6 Brands:pixelsize=16
-hack: &hack Hack Nerd Font:pixelsize=13
+ubuntu: &ubuntu Ubuntu Nerd Font:pixelsize=13
 bg_default: &bg_default {stack: [{background: {color: 81A1C1ff}}, {underline: {size: 4, color: D8DEE9ff}}]}
 std_underline: &std_underline {underline: { size: 2, color: ff0000ff}}
 
 bar:
-  height: 40
+  height: 24
   location: top
-  font: JuliaMono:pixelsize=10
-  spacing: 12
+  font: *ubuntu
+  spacing: 6
   margin: 0
   layer: bottom
   foreground: eeeeeeff
@@ -19,10 +19,10 @@ bar:
   - river:
       anchors:
       - base: &river_base
-          left-margin: 10
-          right-margin: 13 
+          left-margin: 8
+          right-margin: 8
           text: "{id}"
-          font: *hack
+          font: *ubuntu
           on-click: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
 
       title:
@@ -69,7 +69,7 @@ bar:
                         id == 9: { string: { <<: *river_base }}
   right:
     - network:
-        name: wlp0s20u1
+        name: wlp0s20u7
         poll-interval: 1000
         content:
           map:
@@ -105,58 +105,6 @@ bar:
                           - string: {text: , font: *awesome}
                           - string: {text: , font: *awesome}
                           - string: {text: , font: *awesome}
-    - backlight:
-        name: intel_backlight
-        content: [ string: {text: , font: *awesome}, string: {text: "{percent}%"}]
-    - battery:
-        name: BAT0
-        poll-interval: 30000
-        anchors:
-          discharging: &discharging
-            list:
-              items:
-                - ramp:
-                    tag: capacity
-                    items:
-                      - string: {text: , foreground: ff0000ff, font: *awesome}
-                      - string: {text: , foreground: ffa600ff, font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}% {estimate}"}
-        content:
-          map:
-            conditions:
-              state == unknown:
-                <<: *discharging
-              state == discharging:
-                <<: *discharging
-              state == charging:
-                - string: {text: , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}% {estimate}"}
-              state == full:
-                - string: {text: , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}% full"}
-              state == "not charging":
-                - ramp:
-                    tag: capacity
-                    items:
-                      - string: {text:  , foreground: ff0000ff, font: *awesome}
-                      - string: {text:  , foreground: ffa600ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}%"}
     - clock:
         time-format: "%H:%M %Z"
         content:
