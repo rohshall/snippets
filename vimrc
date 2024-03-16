@@ -8,10 +8,6 @@ set smartindent
 set nu
 set laststatus=2
 
-colorscheme slate
-set termguicolors
-set encoding=UTF-8
-
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
@@ -19,14 +15,8 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 Plug 'dense-analysis/ale'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-vinegar'
-Plug 'lambdalisue/fern.vim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-Plug 'lambdalisue/fern-renderer-devicons.vim'
 Plug 'ap/vim-buftabline'
+Plug 'Donaldttt/fuzzyy'
 
 " Initialize plugin system
 call plug#end()
@@ -35,17 +25,16 @@ set omnifunc=ale#completion#OmniFunc
 " Give more space for displaying messages.
 set cmdheight=2
 
-set rtp+=/opt/local/share/fzf
-set guifont=Inconsolata\ Nerd\ Font\ Mono\ 13
+" set rtp+=/opt/local/share/fzf
+set guifont=InconsolataNF-Regular:h20
 
-nnoremap <C-p> :Files<CR>
-noremap <Tab> :bn<CR>
-noremap <S-Tab> :bp<CR>
-nnoremap <C-e> :Fern . -drawer<CR>
+nnoremap <silent> <S-h> :bn<CR>
+nnoremap <silent> <S-l> :bp<CR>
+nnoremap <leader>b :ls<cr>:b<space>
 nnoremap ]a :ALENextWrap<CR>
 nnoremap [a :ALEPreviousWrap<CR>
 
 let g:ale_completion_enabled = 1
-let g:fern#renderer = "nerdfont"
-let g:fern#renderer = "devicons"
-let g:buffet_use_devicons = 1
+
+colorscheme slate
+set termguicolors
