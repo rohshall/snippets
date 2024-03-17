@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 -- config.color_scheme = 'flexoki-dark'
-config.color_scheme = 'Catppuccin Mocha'
+config.color_scheme = 'Rippedcasts'
 config.font = wezterm.font 'Inconsolata'
 config.font_size = 20.0
 
