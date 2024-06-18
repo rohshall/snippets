@@ -1,15 +1,14 @@
-font:
-  # The normal (roman) font face to use.
-  normal:
-    family: Inconsolata Medium
-    style: Regular
-  # The bold font face
-  bold:
-    family: Inconsolata Medium
-    style: Bold
-  # The italic font face
-  italic:
-    family: Inconsolata Medium
-    style: Italic
-  # Point size of the font
-  size: 11.0
+[font]
+size = 11.0
+
+[font.bold]
+family = "GeistMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "GeistMono Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "GeistMono Nerd Font"
+style = "Regular"
