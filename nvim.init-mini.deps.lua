@@ -47,11 +47,14 @@ add({
 	-- Perform action after every checkout
 	hooks = { post_checkout = function() vim.cmd('TSUpdate') end },
 })
+
+add('echasnovski/mini.files')
+
 require('nvim-treesitter.configs').setup({
 	ensure_installed = { 'lua', 'python', 'java', 'kotlin' },
 	highlight = { enable = true },
 })
-
+require('mini.files').setup()
 
 vim.opt.omnifunc = 'ale#completion#OmniFunc'
 vim.opt.termguicolors = true
@@ -70,6 +73,8 @@ vim.opt.linebreak = true
 vim.opt.list = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.modeline = false
+vim.opt.guifont = "Iosevka Nerd Font Mono:h14"
+
 -- vim globals
 vim.g.ale_completion_enabled = 1
 -- Keep the current directory and the browsing directory synced to avoid file move errors 
@@ -88,9 +93,13 @@ vim.keymap.set("n", "<leader>y", "\"+y<CR>", opts)
 vim.keymap.set("n", "<leader>p", "\"+p<CR>", opts)
 vim.keymap.set("n", "<Tab>", ":bn<CR>", opts)
 vim.keymap.set("n", "<S-Tab>", ":bp<CR>", opts)
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set("n", "<C-b>", ":bp<CR>", opts)
+local tbuiltin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', tbuiltin.find_files, {})
+vim.keymap.set('n', '<leader>fg', tbuiltin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', tbuiltin.buffers, {})
+vim.keymap.set('n', '<leader>fh', tbuiltin.help_tags, {})
+local minifiles = require('mini.files')
+vim.keymap.set('n', '<leader>o', minifiles.open, {})
+
 
