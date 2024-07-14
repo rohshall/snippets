@@ -1,3 +1,1 @@
-timeout 600 'swaylock -f'
-timeout 605 'wlopm --off eDP-1' resume 'wlopm --on eDP-1'
-before-sleep 'swaylock -f'
+timeout 60 'wlr-randr --output LVDS-2 --off' resume 'wlr-randr --output LVDS-2 --on'
