@@ -10,15 +10,21 @@
 
 # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
+wlr-randr --output LVDS-1 --off
+brightnessctl set 18000
+
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super+Shift Return spawn foot
-riverctl map normal Super P spawn "wofi --show run"
+riverctl map normal Super P spawn "bemenu-run"
 
 # Super+Q to close the focused view
 riverctl map normal Super Q close
 
 # Super+Shift+E to exit river
 riverctl map normal Super+Shift E exit
+
+# Print screen
+riverctl map normal Super+Shift P spawn "grim -o LVDS-2 $(xdg-user-dir PICTURES)/$(date +'%s_grim.png')"
 
 # Super+J and Super+K to focus the next/previous view in the layout stack
 riverctl map normal Super J focus-view next
@@ -156,13 +162,13 @@ riverctl float-filter-add app-id float
 riverctl float-filter-add title "popup title with spaces"
 
 # Set app-ids and titles of views which should use client side decorations
-riverctl csd-filter-add app-id "gedit"
+riverctl csd-filter-add app-id "nvim"
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-rivertile -view-padding 6 -outer-padding 6 &
+rivertile -view-padding 1 -outer-padding 1 &
 
-riverctl spawn waybar
+riverctl spawn yambar
 riverctl spawn mako
 riverctl spawn swayidle
