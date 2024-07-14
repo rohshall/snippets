@@ -69,25 +69,28 @@ bar:
                         id == 9: { string: { <<: *river_base }}
   right:
     - network:
-        name: wlp0s20u7
         poll-interval: 1000
         content:
           map:
-            default: {string: {text: , font: *awesome, foreground: ffffff66}}
+            default: {empty: {}}
             conditions:
-              state == down: {string: {text: , font: *awesome, foreground: ff0000ff}}
-              state == up:
+              name == wlan0:
                 map:
-                  default:
-                    - string: {text: , font: *awesome}
-                    - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s"}
-
+                  default: {string: {text: , font: *awesome, foreground: ffffff66}}
                   conditions:
-                    ipv4 == "":
-                      - string: {text: , font: *awesome, foreground: ffffff66}
-                      - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s", foreground: ffffff66}
+                    state == down: {string: {text: , font: *awesome, foreground: ff0000ff}}
+                    state == up:
+                      map:
+                        default:
+                          - string: {text: , font: *awesome}
+                          - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s"}
+
+                        conditions:
+                          ipv4 == "":
+                            - string: {text: , font: *awesome, foreground: ffffff66}
+                            - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s", foreground: ffffff66}
     - alsa:
-        card: hw:PCH
+        card: default
         mixer: Master
         content:
           map:
