@@ -1,39 +1,25 @@
-# Typical laptop setup, with wifi, brightness, battery etc, for
-# i3/Sway.
-
-# For X11/i3, you'll want to replace calls to swaymsg with i3-msg, and
-# the sway-xkb module with the xkb module.
-
 # fonts we'll be re-using here and there
-awesome: &awesome Font Awesome 6 Free:style=solid:pixelsize=12
-awesome_brands: &awesome_brands Font Awesome 6 Brands:pixelsize=12
-
+awesome: &awesome Font Awesome 6 Free:style=solid:pixelsize=14
+awesome_brands: &awesome_brands Font Awesome 6 Brands:pixelsize=16
+ubuntu: &ubuntu Ubuntu Nerd Font:pixelsize=13
+bg_default: &bg_default {stack: [{background: {color: 81A1C1ff}}, {underline: {size: 4, color: D8DEE9ff}}]}
 std_underline: &std_underline {underline: { size: 2, color: ff0000ff}}
 
-# This is THE bar configuration
 bar:
   height: 24
   location: top
+  font: *ubuntu
   spacing: 6
-  margin: 4
-
-  # Default font
-  font: Inconsolata:pixelsize=12
-
-  foreground: ffffffff
-  background: 111111cc
-
-  border:
-    width: 1
-    color: 999999cc
-    margin: 5
-    top-margin: 0
+  margin: 0
+  layer: bottom
+  foreground: eeeeeeff
+  background: 2E3440dd
 
   left:
     - i3:
         anchors: # Not used (directly) by f00bar; used here to avoid duplication
           - string: &i3_common {margin: 5, on-click: "swaymsg --quiet workspace {name}"}
-          - string: &default {<<: *i3_common, text: " {name} "}
+          - string: &default {<<: *i3_common, text: "? {name}"}
           - string: &main    {<<: *i3_common, text: , font: *awesome}
           - string: &surfing {<<: *i3_common, text: , font: *awesome_brands}
           - string: &misc    {<<: *i3_common, text: , font: *awesome}
@@ -98,6 +84,7 @@ bar:
                 state == unfocused: {string: {<<: *music}}
                 state == invisible: {string: {<<: [*music, *invisible]}}
                 state == urgent:    {string: {<<: [*music, *urgent]}}
+
     - foreign-toplevel:
         content:
           map:
@@ -109,25 +96,28 @@ bar:
 
   right:
     - network:
-        name: wlp0s20u1
         poll-interval: 1000
         content:
           map:
-            default: {string: {text: , font: *awesome, foreground: ffffff66}}
+            default: {empty: {}}
             conditions:
-              state == down: {string: {text: , font: *awesome, foreground: ff0000ff}}
-              state == up:
+              name == wlan0:
                 map:
-                  default:
-                    - string: {text: , font: *awesome}
-                    - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s"}
-
+                  default: {string: {text: , font: *awesome, foreground: ffffff66}}
                   conditions:
-                    ipv4 == "":
-                      - string: {text: , font: *awesome, foreground: ffffff66}
-                      - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s", foreground: ffffff66}
+                    state == down: {string: {text: , font: *awesome, foreground: ff0000ff}}
+                    state == up:
+                      map:
+                        default:
+                          - string: {text: , font: *awesome}
+                          - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s"}
+
+                        conditions:
+                          ipv4 == "":
+                            - string: {text: , font: *awesome, foreground: ffffff66}
+                            - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s", foreground: ffffff66}
     - alsa:
-        card: hw:PCH
+        card: default
         mixer: Master
         content:
           map:
@@ -201,9 +191,3 @@ bar:
           - string: {text: "{date}", right-margin: 5}
           - string: {text: , font: *awesome}
           - string: {text: "{time}"}
-    - label:
-        content:
-          string:
-            on-click: systemctl poweroff
-            text: 
-            font: *awesome
