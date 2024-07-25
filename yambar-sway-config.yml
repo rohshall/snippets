@@ -48,51 +48,7 @@ bar:
                 state == unfocused: {string: {<<: *default}}
                 state == invisible: {string: {<<: [*default, *invisible]}}
                 state == urgent:    {string: {<<: [*default, *urgent]}}
-          main:
-            map:
-              conditions:
-                state == focused:   {string: {<<: [*main, *focused]}}
-                state == unfocused: {string: {<<: *main}}
-                state == invisible: {string: {<<: [*main, *invisible]}}
-                state == urgent:    {string: {<<: [*main, *urgent]}}
-          surfing:
-            map:
-              conditions:
-                state == focused: {string: {<<: [*surfing, *focused]}}
-                state == unfocused: {string: {<<: *surfing}}
-                state == invisible: {string: {<<: [*surfing, *invisible]}}
-                state == urgent:    {string: {<<: [*surfing, *urgent]}}
-          misc:
-            map:
-              conditions:
-                state == focused: {string: {<<: [*misc, *focused]}}
-                state == unfocused: {string: {<<: *misc}}
-                state == invisible: {string: {<<: [*misc, *invisible]}}
-                state == urgent:    {string: {<<: [*misc, *urgent]}}
-
-          mail:
-            map:
-              conditions:
-                state == focused: {string: {<<: [*mail, *focused]}}
-                state == unfocused: {string: {<<: *mail}}
-                state == invisible: {string: {<<: [*mail, *invisible]}}
-                state == urgent:    {string: {<<: [*mail, *urgent]}}
-          music:
-            map:
-              conditions:
-                state == focused: {string: {<<: [*music, *focused]}}
-                state == unfocused: {string: {<<: *music}}
-                state == invisible: {string: {<<: [*music, *invisible]}}
-                state == urgent:    {string: {<<: [*music, *urgent]}}
-
-    - foreign-toplevel:
-        content:
-          map:
-            conditions:
-              ~activated: {empty: {}}
-              activated:
-                - string: {text: "{app-id}", foreground: ffa0a0ff}
-                - string: {text: ": {title}"}
+          current: { string: {text: "{application}: {title}"}}
 
   right:
     - network:
