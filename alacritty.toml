@@ -1,8 +1,14 @@
 [font]
-
-normal.family = "GeistMono Nerd Font"
-bold.family = "GeistMono Nerd Font"
-italic.family = "GeistMono Nerd Font"
-bold_italic.family = "GeistMono Nerd Font"
-
 size = 11.0
+
+[font.bold]
+family = "Iosevka Nerd Font Mono"
+style = "Bold"
+
+[font.italic]
+family = "Iosevka Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "Iosevka Nerd Font Mono"
+style = "Regular"
