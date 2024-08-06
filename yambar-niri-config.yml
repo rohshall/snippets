@@ -1,14 +1,14 @@
 # fonts we'll be re-using here and there
 awesome: &awesome Font Awesome 6 Free:style=solid:pixelsize=14
 awesome_brands: &awesome_brands Font Awesome 6 Brands:pixelsize=16
-ubuntu: &ubuntu Ubuntu Nerd Font:pixelsize=13
+arimo: &arimo Arimo Nerd Font:pixelsize=13
 bg_default: &bg_default {stack: [{background: {color: 81A1C1ff}}, {underline: {size: 4, color: D8DEE9ff}}]}
 std_underline: &std_underline {underline: { size: 2, color: ff0000ff}}
 
 bar:
   height: 24
   location: top
-  font: *ubuntu
+  font: *arimo
   spacing: 6
   margin: 0
   layer: bottom
