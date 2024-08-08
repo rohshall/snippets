@@ -10,7 +10,10 @@
 
 # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
-brightnessctl set 18000
+brightnessctl set 10
+
+riverctl input pointer-1452-594-bcm5974 tap enabled
+riverctl focus-follows-cursor normal
 
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super+Shift Return spawn alacritty
