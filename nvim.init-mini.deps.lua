@@ -33,6 +33,8 @@ add(
 add('nvim-tree/nvim-web-devicons')
 require('nvim-web-devicons').setup()
 
+add('rebelot/kanagawa.nvim')
+
 add({
 	source = 'neovim/nvim-lspconfig',
 	-- Supply dependencies near target plugin
@@ -85,7 +87,7 @@ vim.g.netrw_browse_split = 4
 vim.g.netrw_altv = 1
 vim.g.netrw_winsize = 25
 
-vim.cmd [[colorscheme slate]]
+vim.cmd [[colorscheme kanagawa]]
 -- mappings
 local opts = { noremap=true, silent=true }
 vim.keymap.set("n", "<leader>x", "\"+x<CR>", opts)
