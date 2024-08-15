@@ -1,18 +1,18 @@
 [font]
-size = 10
+size = 11
 
 [font.bold]
-family = "MartianMono Nerd Font"
+family = "FiraMono Nerd Font Mono"
 style = "Bold"
 
 [font.bold_italic]
-family = "MartianMono Nerd Font"
+family = "FiraMono Nerd Font Mono"
 style = "Bold Italic"
 
 [font.italic]
-family = "MartianMono Nerd Font"
+family = "FiraMono Nerd Font Mono"
 style = "Italic"
 
 [font.normal]
-family = "MartianMono Nerd Font"
+family = "FiraMono Nerd Font Mono"
 style = "Regular"
