@@ -1,14 +1,10 @@
-# fonts we'll be re-using here and there
-awesome: &awesome Font Awesome 6 Free:style=solid:pixelsize=14
-awesome_brands: &awesome_brands Font Awesome 6 Brands:pixelsize=16
-fira: &fira Fira Sans:pixelsize=12
-bg_default: &bg_default {stack: [{background: {color: 81A1C1ff}}, {underline: {size: 4, color: D8DEE9ff}}]}
-std_underline: &std_underline {underline: { size: 2, color: ff0000ff}}
+icons: &icons  Font Awesome 6 Free Regular:pixelsize=12
+font: &font Fira Sans:pixelsize=12
 
 bar:
   height: 24
   location: top
-  font: *fira
+  font: *font
   spacing: 6
   margin: 0
   layer: bottom
@@ -32,20 +28,20 @@ bar:
           map:
             default: {empty: {}}
             conditions:
-              name == wlan0:
+              name == wlp3s0:
                 map:
-                  default: {string: {text: , font: *awesome, foreground: ffffff66}}
+                  default: {string: {text: , font: *icons, foreground: ffffff66}}
                   conditions:
-                    state == down: {string: {text: , font: *awesome, foreground: ff0000ff}}
+                    state == down: {string: {text: , font: *icons, foreground: ff0000ff}}
                     state == up:
                       map:
                         default:
-                          - string: {text: , font: *awesome}
+                          - string: {text: , font: *icons}
                           - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s"}
 
                         conditions:
                           ipv4 == "":
-                            - string: {text: , font: *awesome, foreground: ffffff66}
+                            - string: {text: , font: *icons, foreground: ffffff66}
                             - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s", foreground: ffffff66}
     - alsa:
         card: default
@@ -53,19 +49,19 @@ bar:
         content:
           map:
             conditions:
-              ~online: {string: {text: , font: *awesome, foreground: ff0000ff}}
+              ~online: {string: {text: , font: *icons, foreground: ff0000ff}}
               online:
                 map:
                   on-click: /bin/sh -c "amixer -q sset Speaker unmute && amixer -q sset Headphone unmute && amixer -q sset Master toggle"
                   conditions:
-                    muted: {string: {text: , font: *awesome, foreground: ffffff66}}
+                    muted: {string: {text: , font: *icons, foreground: ffffff66}}
                     ~muted:
                       ramp:
                         tag: percent
                         items:
-                          - string: {text: , font: *awesome}
-                          - string: {text: , font: *awesome}
-                          - string: {text: , font: *awesome}
+                          - string: {text: , font: *icons}
+                          - string: {text: , font: *icons}
+                          - string: {text: , font: *icons}
     - battery:
         name: BAT0
         poll-interval: 30000
@@ -76,16 +72,16 @@ bar:
                 - ramp:
                     tag: capacity
                     items:
-                      - string: {text: , foreground: ff0000ff, font: *awesome}
-                      - string: {text: , foreground: ffa600ff, font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , foreground: 00ff00ff, font: *awesome}
+                      - string: {text: , foreground: ff0000ff, font: *icons}
+                      - string: {text: , foreground: ffa600ff, font: *icons}
+                      - string: {text: , font: *icons}
+                      - string: {text: , font: *icons}
+                      - string: {text: , font: *icons}
+                      - string: {text: , font: *icons}
+                      - string: {text: , font: *icons}
+                      - string: {text: , font: *icons}
+                      - string: {text: , font: *icons}
+                      - string: {text: , foreground: 00ff00ff, font: *icons}
                 - string: {text: "{capacity}% {estimate}"}
         content:
           map:
@@ -95,30 +91,30 @@ bar:
               state == discharging:
                 <<: *discharging
               state == charging:
-                - string: {text: , foreground: 00ff00ff, font: *awesome}
+                - string: {text: , foreground: 00ff00ff, font: *icons}
                 - string: {text: "{capacity}% {estimate}"}
               state == full:
-                - string: {text: , foreground: 00ff00ff, font: *awesome}
+                - string: {text: , foreground: 00ff00ff, font: *icons}
                 - string: {text: "{capacity}% full"}
               state == "not charging":
                 - ramp:
                     tag: capacity
                     items:
-                      - string: {text:  , foreground: ff0000ff, font: *awesome}
-                      - string: {text:  , foreground: ffa600ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: ff0000ff, font: *icons}
+                      - string: {text:  , foreground: ffa600ff, font: *icons}
+                      - string: {text:  , foreground: 00ff00ff, font: *icons}
+                      - string: {text:  , foreground: 00ff00ff, font: *icons}
+                      - string: {text:  , foreground: 00ff00ff, font: *icons}
+                      - string: {text:  , foreground: 00ff00ff, font: *icons}
+                      - string: {text:  , foreground: 00ff00ff, font: *icons}
+                      - string: {text:  , foreground: 00ff00ff, font: *icons}
+                      - string: {text:  , foreground: 00ff00ff, font: *icons}
+                      - string: {text:  , foreground: 00ff00ff, font: *icons}
                 - string: {text: "{capacity}%"}
     - clock:
         time-format: "%H:%M %Z"
         content:
-          - string: {text: , font: *awesome}
+          - string: {text: , font: *icons}
           - string: {text: "{date}", right-margin: 5}
-          - string: {text: , font: *awesome}
+          - string: {text: , font: *icons}
           - string: {text: "{time}"}
