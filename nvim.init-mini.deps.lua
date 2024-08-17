@@ -1,62 +1,43 @@
--- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
-local path_package = vim.fn.stdpath('data') .. '/site/'
-local mini_path = path_package .. 'pack/deps/start/mini.nvim'
-if not vim.loop.fs_stat(mini_path) then
-	vim.cmd('echo "Installing `mini.nvim`" | redraw')
-	local clone_cmd = {
-		'git', 'clone', '--filter=blob:none',
-		'https://github.com/echasnovski/mini.nvim', mini_path
-	}
-	vim.fn.system(clone_cmd)
-	vim.cmd('packadd mini.nvim | helptags ALL')
-	vim.cmd('echo "Installed `mini.nvim`" | redraw')
+-- lazy setup
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Set up 'mini.deps' (customize to your liking)
-require('mini.deps').setup({ path = { package = path_package } })
-
-local add = MiniDeps.add
-
-add('dense-analysis/ale')
-add(
-{
-	source = 'akinsho/bufferline.nvim',
-	depends = { 'nvim-tree/nvim-web-devicons' },
-})
-require("bufferline").setup{}
-add(
-{
-	source = 'nvim-telescope/telescope.nvim',
-	depends = { 'nvim-lua/plenary.nvim' }
-})
--- Add to current session (install if absent)
-add('nvim-tree/nvim-web-devicons')
-require('nvim-web-devicons').setup()
-
-add('rebelot/kanagawa.nvim')
-
-add({
-	source = 'neovim/nvim-lspconfig',
-	-- Supply dependencies near target plugin
-	depends = { 'williamboman/mason.nvim' },
+-- plug
+require 'lazy'.setup({
+	'neovim/nvim-lspconfig',
+	'dense-analysis/ale',
+	'nvim-tree/nvim-web-devicons',
+	'akinsho/bufferline.nvim',
+	'williamboman/mason.nvim',
+	'williamboman/mason-lspconfig.nvim',
+	{ 'ibhagwan/fzf-lua', branch = 'main' },
+	{ 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+	'rebelot/kanagawa.nvim'
 })
 
-add({
-	source = 'nvim-treesitter/nvim-treesitter',
-	-- Use 'master' while monitoring updates in 'main'
-	checkout = 'master',
-	monitor = 'main',
-	-- Perform action after every checkout
-	hooks = { post_checkout = function() vim.cmd('TSUpdate') end },
-})
 
-add('echasnovski/mini.files')
+-- nvim-treesitter
+require 'nvim-treesitter.configs'.setup {
+	auto_install = true,
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false
+	}
+}
 
-require('nvim-treesitter.configs').setup({
-	ensure_installed = { 'lua', 'python', 'java', 'kotlin' },
-	highlight = { enable = true },
-})
-require('mini.files').setup()
+-- mason and mason-lspconfig
+require 'mason'.setup()
+require 'mason-lspconfig'.setup()
 
 vim.opt.omnifunc = 'ale#completion#OmniFunc'
 vim.opt.termguicolors = true
@@ -75,33 +56,17 @@ vim.opt.linebreak = true
 vim.opt.list = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.modeline = false
-vim.opt.guifont = "Iosevka Nerd Font Mono:h14"
+vim.opt.guifont = "FiraCode Nerd Font Mono:h14"
+-- colorscheme
+vim.cmd [[colorscheme kanagawa]]
 
 -- vim globals
 vim.g.ale_completion_enabled = 1
--- Keep the current directory and the browsing directory synced to avoid file move errors 
-vim.g.netrw_keepdir = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
-vim.g.netrw_browse_split = 4
-vim.g.netrw_altv = 1
-vim.g.netrw_winsize = 25
 
-vim.cmd [[colorscheme kanagawa]]
--- mappings
 local opts = { noremap=true, silent=true }
-vim.keymap.set("n", "<leader>x", "\"+x<CR>", opts)
-vim.keymap.set("n", "<leader>y", "\"+y<CR>", opts)
-vim.keymap.set("n", "<leader>p", "\"+p<CR>", opts)
+-- fzf
+vim.keymap.set('n', '<leader>f', "<CMD>lua require('fzf-lua').files()<CR>", opts)
+vim.keymap.set('n', '<leader>b', "<CMD>lua require('fzf-lua').buffers()<CR>", opts)
+-- buffers
 vim.keymap.set("n", "<Tab>", ":bn<CR>", opts)
 vim.keymap.set("n", "<S-Tab>", ":bp<CR>", opts)
-vim.keymap.set("n", "<C-b>", ":bp<CR>", opts)
-local tbuiltin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', tbuiltin.find_files, {})
-vim.keymap.set('n', '<leader>fg', tbuiltin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', tbuiltin.buffers, {})
-vim.keymap.set('n', '<leader>fh', tbuiltin.help_tags, {})
-local minifiles = require('mini.files')
-vim.keymap.set('n', '<leader>o', minifiles.open, {})
-
-
